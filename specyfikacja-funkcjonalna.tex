@@ -18,8 +18,8 @@
 \usepackage[pdfborder={0 0 0}]{hyperref}
 
 \DefineVerbatimEnvironment%
-	{SmallVerbatim}%
-	{Verbatim}{fontsize=\relsize{-1},numbers=left,numbersep=-10pt,frame=lines,tabsize=4}
+  {SmallVerbatim}%
+  {Verbatim}{fontsize=\relsize{-1},numbers=left,numbersep=-10pt,frame=lines,tabsize=4}
 
 \newcommand{\prog}[1]{\texttt{#1}}
 \newcommand{\flag}[1]{\textbf{\prog{#1}}}
@@ -29,8 +29,8 @@
 %%fakesection{Tytuł}
 \title{ 
   Interpolacja funkcjami sklejanymi\\
-	{\normalsize Specyfikacja funkcjonalna projektu nr 1}\\\vspace{-12pt}
-	{\normalsize z przedmiotu \emph{Języki i metody programowania 2}}
+  {\normalsize Specyfikacja funkcjonalna projektu nr 1}\\\vspace{-12pt}
+  {\normalsize z przedmiotu \emph{Języki i metody programowania 2}}
 }
 \author{
   Tomasz Cudziło\\
@@ -179,21 +179,21 @@ napotkanego błędu.
 \label{sec:flagi}
 
 \begin{description}
-	\item[\flag{-o}{\tt\textsl{=file}},\quad\flag{--out}{\tt\textsl{=file}}] \hfill \\
-		Utwórz plik wyjściowy o~podanej nazwie. Jeśli flaga jest podana wtedy nazwy
-		pozostałych plików tworzonych przez program są wzorowane na jej argumencie,
-		a~nie na nazwie pliku wejściowego, tzn. dodawane są postfixy \prog{.plt}
-		i~\prog{.log}. Jeśli nazwa podanego pliku kończy się na \prog{.out} wtedy
-		rozszerzenie to jest pomijane w~nazwach pozostałych plików.
-	\item[\flag{-g},\quad\flag{--gnuplot}] \hfill \\
-		Razem z~plikem wyjściowym utwórz plik z~instrukcjami dla \prog{gnuplot}.
-		Domyślnie wyłączone.
-	\item[\flag{-f},\quad\flag{--force}] \hfill \\
-		Wymusza nadpisanie pliku, gdy plik wynikowy o~żądanej nazwie już istnieje.
-		Domyślnie w~takiej sytuacji program przerywa działanie. Gorzej jak plik
-		istnieje, ale użytkownik nie ma praw go ruszać.
-	\item[\flag{-q},\quad\flag{--quiet}] \hfill \\
-		Nie twórz pliku z~logiem. Domyślnie \prog{.log} jest tworzony.
+  \item[\flag{-o}{\tt\textsl{=file}},\quad\flag{--out}{\tt\textsl{=file}}] \hfill \\
+    Utwórz plik wyjściowy o~podanej nazwie. Jeśli flaga jest podana wtedy nazwy
+    pozostałych plików tworzonych przez program są wzorowane na jej argumencie,
+    a~nie na nazwie pliku wejściowego, tzn. dodawane są postfixy \prog{.plt}
+    i~\prog{.log}. Jeśli nazwa podanego pliku kończy się na \prog{.out} wtedy
+    rozszerzenie to jest pomijane w~nazwach pozostałych plików.
+  \item[\flag{-g},\quad\flag{--gnuplot}] \hfill \\
+    Razem z~plikem wyjściowym utwórz plik z~instrukcjami dla \prog{gnuplot}.
+    Domyślnie wyłączone.
+  \item[\flag{-f},\quad\flag{--force}] \hfill \\
+    Wymusza nadpisanie pliku, gdy plik wynikowy o~żądanej nazwie już istnieje.
+    Domyślnie w~takiej sytuacji program przerywa działanie. Gorzej jak plik
+    istnieje, ale użytkownik nie ma praw go ruszać.
+  \item[\flag{-q},\quad\flag{--quiet}] \hfill \\
+    Nie twórz pliku z~logiem. Domyślnie \prog{.log} jest tworzony.
 \end{description}
 
 \end{document}
