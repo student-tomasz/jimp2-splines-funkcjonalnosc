@@ -1,0 +1,199 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[a4paper,top=3cm,bottom=3cm]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+
+\usepackage{xltxtra}
+\defaultfontfeatures{Mapping=tex-text}
+\setromanfont{Gentium}
+%\setsansfont[Scale=MatchLowercase]{Gill Sans}
+%\setmonofont[Scale=MatchLowercase]{Monaco}
+\linespread{1.25}
+
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{alltt}
+
+\usepackage[pdfborder={0 0 0}]{hyperref}
+
+\DefineVerbatimEnvironment%
+	{SmallVerbatim}%
+	{Verbatim}{fontsize=\relsize{-1},numbers=left,numbersep=-10pt,frame=lines,tabsize=4}
+
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textbf{\prog{#1}}}
+
+\begin{document}
+
+%%fakesection{Tytuł}
+\title{ 
+  Interpolacja funkcjami sklejanymi\\
+	{\normalsize Specyfikacja funkcjonalna projektu nr 1}\\\vspace{-12pt}
+	{\normalsize z przedmiotu \emph{Języki i metody programowania 2}}
+}
+\author{
+  Tomasz Cudziło\\
+  {\small EE PW, 211552}
+}
+\date{\today}
+\maketitle
+
+\section*{Zadanie}
+\label{sec:zadanie}
+
+Napisać program wyznaczający współczynniki funkcji sklejanych trzeciego stopnia
+aproksymujących zadany ciąg danych pomiarowych.
+
+\vspace{24pt}
+
+\section{Opis}
+\label{sec:opis}
+
+Program na podstawie danych pomiarowych wyznacza współczynniki funkcji
+sklejanych je aproksymujących.
+
+Opcjonalnie program tworzy plik dla pakietu \prog{gnuplot}, pozwalający
+narysować wykres z~podanymi punktami oraz wyznaczonymi funkcjami sklejanymi.
+
+Program działa jedynie w~wersji tekstowej, nie prowadzi dialogu
+z~użytkownikiem. Wymaga podania, jako argumentu linii poleceń, ścieżkę
+(względną lub absolutną) do pliku z~danymi wejściowymi, oraz ewentualny ciąg
+flag i~ich argumentów opisanych w~sekcji \ref{sec:flagi}.
+
+\section{Obsługa}
+
+\begin{alltt}
+\textbf{spline} [\textsl{flags}] [\flag{-o|--out} \textsl{output\_file}] \textsl{source\_file}
+\textbf{spline} [\textsl{flags}] \flag{-o|--out} \textsl{output\_file} < \textsl{source\_file}
+\end{alltt}
+
+\section{Pliki}
+\label{sec:pliki}
+
+\subsection{Plik z~danymi wejściowymi}
+\label{sec:plik_wejsciowy}
+
+W~podstawowym przypadku użytkownik musi przekazać ścieżkę do pliku z~danymi.
+Jeśli ścieżka do pliku z~danymi jest niewłaściwa lub użytkownik nie ma praw
+odczytu do pliku, wtedy program kończy działanie z~adnotacją w~logu.
+
+Jeśli plik wejściowy nie zostanie podany, dane wejściowe wczytywane są
+z~wejścia standardowego i~wymagane jest podanie ścieżki do pliku wyjściowego
+poprzez flagę \flag{-o|--out}.
+
+W~pliku z~danymi w~jednej linii, powinna znajdować się para liczb oddzielonych
+od siebie dowolną liczbą spacji lub znaków tabulacji. Liczby powinny być
+sformatowane do postaci rozumianej przez standardową bibliotekę jezyka C.
+Linie zaczynające się od znaku \prog{\#} są ignorowane.
+
+Przykład poprawnego pliku z~danymi wejściowymi:
+\vspace{-12pt}
+\begin{SmallVerbatim}
+    # example_input_file
+    # x y
+    12     -0.9
+    7.12e1  3.2e-1  
+    92.0    0.04
+\end{SmallVerbatim}
+
+W~przypadku niepoprawnie sformatowanych danych, niezależnie od ich źródła,
+program przerywa pracę i~drukuje komunikat w~logu.
+
+\subsection{Plik wyjściowy}
+\label{sec:plik_wyjsciowy}
+
+Plik wynikowy ma tę samą ścieżkę/nazwę co plik z~danymi z~dopisanym
+postfixem~\prog{.out}. Jeśli isnieje już plik o~nazwie pliku wyjściowego,
+program przerywa działanie. Jeśli zostanie podana flaga \flag{-f|--force}
+plik ten zostanie nadpisany. Plik utworzony przez program\footnote{Funkcje
+w~przykładzie są zupełnie przypadkowe.}:
+\vspace{-12pt}
+\begin{SmallVerbatim}
+    # created at: 01/03/2011 00:39:42
+    #       file: example_input_file.out
+    # [x=x_{n1}:x_{n2}] fun_n(x) = a_{n1}*x**3 + a_{n2}*x**2 + a_{n3}*x + a_{n4}
+    [x=12:71.2] fun1(x) = 4*x**3 + 4.4*x**2 - 4.44*x - 5.4
+    [x=71.2:92.0] fun2(x) = 5.4*x**3 + 4.44*x**2 - 4.4*x + 4
+\end{SmallVerbatim}
+
+\subsection{Plik dla \texttt{gnuplot}}
+\label{sec:plik_gnuplot}
+
+Gdy zostanie podana flaga \flag{-g|--gnuplot} program tworzy plik, o~tej samej
+nazwie co plik wyjściowy z~rozszerzeniem \prog{.plt}. Jeśli plik o~danej nazwie
+już istnieje, zostaje on nadpisany. Domyślnie, plik ten \emph{nie} jest
+tworzony.
+
+Plik \prog{.plt} jednoznacznie opisuje wykres z~każdą z~wyznaczonych funkcji
+na jej przedziale --- przedziały te nie pokrywają się.
+FAQ\footnote{\url{http://www.gnuplot.info/faq/faq.html\#SECTION00081000000000000000}}
+\texttt{gnuplota} posiada przykład, który pasuje tutaj doskonale:
+\vspace{-12pt}
+\begin{SmallVerbatim}
+    # created at: 01/03/2011 00:39:42
+    #       file: example_input_file.plt
+    set parametric
+    x11=12
+    x12=71.2
+    x21=71.2
+    x22=92.0
+    x1(t) = x11+(x12-x11)*t
+    x2(t) = x21+(x22-x21)*t
+    fun1(x) = 4*x**3 + 4.4*x**2 - 4.44*x - 5.4
+    fun2(x) = 5.4*x**3 + 4.44*x**2 - 4.4*x + 4
+    plot [t=0:1]\
+      x1(t), fun1(x1(t)),\
+      x2(t), fun2(x2(t))
+\end{SmallVerbatim}
+
+Każda para podanych programowi wartości $(x_{ij}, x_{ij+1})$ jest mapowana na
+przedziale $x_{i}$ ponieważ $t \in [0,1]$, na nim też rysowana jest funkcja
+z~pliku wyjściowego. Jeśli znajdę sposób na wyraźniejsze zaznaczenie punktów
+podanych w~pliku wejściowym dodam instrukcje do pliku \prog{.plt}.
+
+\subsection{Plik z~logiem}
+\label{sec:plik_log}
+
+Plik tekstowy z~logiem jest tworzony analogicznie do pliku wynikowego
+z~zakończeniem \prog{.log}. Podanie flagi \flag{-q|--quiet} zapobiega tworzeniu
+tego pliku, w~przeciwnym przypadku, jeśli istnieje plik o~danej nazwie, zostaje
+on nadpisany.
+
+Dokładna zawartość pliku z~logiem silnie zależy od implementacji projektu.
+Ogólnie w~każdej linii będzie nazwa modułu/funckji, lub nazwa pliku źródłowego
+i~numer linii kodu tworzących wpis do logu, oraz przekazywana wiadomość. Plik
+\prog{.log} będzie zakończony wiadomością o~pomyślnym zakończeniu lub opisem
+napotkanego błędu.
+\vspace{-12pt}
+\begin{SmallVerbatim}
+    # created at: 01/03/2011 00:39:42
+    #       file: example_input_file.log
+    parser.c:80: parsing some points
+    spline.c:92: received ranges
+    main.c:80: omfg, something bad happened
+    error: interpolation aborted because failwhale ate my pencil
+\end{SmallVerbatim}
+
+\section{Flagi}
+\label{sec:flagi}
+
+\begin{description}
+	\item[\flag{-o}{\tt\textsl{=file}},\quad\flag{--out}{\tt\textsl{=file}}] \hfill \\
+		Utwórz plik wyjściowy o~podanej nazwie. Jeśli flaga jest podana wtedy nazwy
+		pozostałych plików tworzonych przez program są wzorowane na jej argumencie,
+		a~nie na nazwie pliku wejściowego, tzn. dodawane są postfixy \prog{.plt}
+		i~\prog{.log}. Jeśli nazwa podanego pliku kończy się na \prog{.out} wtedy
+		rozszerzenie to jest pomijane w~nazwach pozostałych plików.
+	\item[\flag{-g},\quad\flag{--gnuplot}] \hfill \\
+		Razem z~plikem wyjściowym utwórz plik z~instrukcjami dla \prog{gnuplot}.
+		Domyślnie wyłączone.
+	\item[\flag{-f},\quad\flag{--force}] \hfill \\
+		Wymusza nadpisanie pliku, gdy plik wynikowy o~żądanej nazwie już istnieje.
+		Domyślnie w~takiej sytuacji program przerywa działanie. Gorzej jak plik
+		istnieje, ale użytkownik nie ma praw go ruszać.
+	\item[\flag{-q},\quad\flag{--quiet}] \hfill \\
+		Nie twórz pliku z~logiem. Domyślnie \prog{.log} jest tworzony.
+\end{description}
+
+\end{document}
