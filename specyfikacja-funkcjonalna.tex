@@ -102,7 +102,7 @@ program przerywa pracę i~drukuje komunikat w~logu.
 \label{sec:plik_wyjsciowy}
 
 Plik wynikowy ma tę samą ścieżkę/nazwę co plik z~danymi z~dopisanym
-postfixem~\prog{.out}. Jeśli isnieje już plik o~nazwie pliku wyjściowego,
+postfixem~\prog{.out}. Jeśli istnieje już plik o~nazwie pliku wyjściowego,
 program przerywa działanie. Jeśli zostanie podana flaga \flag{-f|-\--force}
 plik ten zostanie nadpisany. Plik utworzony przez program\footnote{Funkcje
 w~przykładzie są zupełnie przypadkowe.}:
@@ -158,7 +158,7 @@ tego pliku, w~przeciwnym przypadku, jeśli istnieje plik o~danej nazwie, zostaje
 on nadpisany.
 
 Dokładna zawartość pliku z~logiem silnie zależy od implementacji projektu.
-Ogólnie w~każdej linii będzie nazwa modułu/funckji, lub nazwa pliku źródłowego
+Ogólnie w~każdej linii będzie nazwa modułu/funkcji, lub nazwa pliku źródłowego
 i~numer linii kodu tworzących wpis do logu, oraz przekazywana wiadomość. Plik
 \prog{.log} będzie zakończony wiadomością o~pomyślnym zakończeniu lub opisem
 napotkanego błędu.
@@ -183,7 +183,7 @@ napotkanego błędu.
     i~\prog{.log}. Jeśli nazwa podanego pliku kończy się na \prog{.out} wtedy
     rozszerzenie to jest pomijane w~nazwach pozostałych plików.
   \item[\flag{-g},\quad\flag{-\--gnuplot}] \hfill \\
-    Razem z~plikem wyjściowym utwórz plik z~instrukcjami dla \prog{gnuplot}.
+    Razem z~plikiem wyjściowym utwórz plik z~instrukcjami dla \prog{gnuplot}.
     Domyślnie wyłączone.
   \item[\flag{-f},\quad\flag{-\--force}] \hfill \\
     Wymusza nadpisanie pliku, gdy plik wynikowy o~żądanej nazwie już istnieje.
