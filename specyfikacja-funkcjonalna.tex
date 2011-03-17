@@ -78,7 +78,7 @@ odczytu do pliku, wtedy program kończy działanie z~adnotacją w~logu.
 
 Jeśli plik wejściowy nie zostanie podany, dane wejściowe wczytywane są
 z~wejścia standardowego i~wymagane jest podanie ścieżki do pliku wyjściowego
-poprzez flagę \flag{-o|--out}.
+poprzez flagę \flag{-o|-\--out}.
 
 W~pliku z~danymi w~jednej linii, powinna znajdować się para liczb oddzielonych
 od siebie dowolną liczbą spacji lub znaków tabulacji. Liczby powinny być
@@ -103,7 +103,7 @@ program przerywa pracę i~drukuje komunikat w~logu.
 
 Plik wynikowy ma tę samą ścieżkę/nazwę co plik z~danymi z~dopisanym
 postfixem~\prog{.out}. Jeśli isnieje już plik o~nazwie pliku wyjściowego,
-program przerywa działanie. Jeśli zostanie podana flaga \flag{-f|--force}
+program przerywa działanie. Jeśli zostanie podana flaga \flag{-f|-\--force}
 plik ten zostanie nadpisany. Plik utworzony przez program\footnote{Funkcje
 w~przykładzie są zupełnie przypadkowe.}:
 \vspace{-12pt}
@@ -118,7 +118,7 @@ w~przykładzie są zupełnie przypadkowe.}:
 \subsection{Plik dla \texttt{gnuplot}}
 \label{sec:plik_gnuplot}
 
-Gdy zostanie podana flaga \flag{-g|--gnuplot} program tworzy plik, o~tej samej
+Gdy zostanie podana flaga \flag{-g|-\--gnuplot} program tworzy plik, o~tej samej
 nazwie co plik wyjściowy z~rozszerzeniem \prog{.plt}. Jeśli plik o~danej nazwie
 już istnieje, zostaje on nadpisany. Domyślnie, plik ten \emph{nie} jest
 tworzony.
@@ -154,7 +154,7 @@ podanych w~pliku wejściowym dodam instrukcje do pliku \prog{.plt}.
 \label{sec:plik_log}
 
 Plik tekstowy z~logiem jest tworzony analogicznie do pliku wynikowego
-z~zakończeniem \prog{.log}. Podanie flagi \flag{-q|--quiet} zapobiega tworzeniu
+z~zakończeniem \prog{.log}. Podanie flagi \flag{-q|-\--quiet} zapobiega tworzeniu
 tego pliku, w~przeciwnym przypadku, jeśli istnieje plik o~danej nazwie, zostaje
 on nadpisany.
 
@@ -177,20 +177,20 @@ napotkanego błędu.
 \label{sec:flagi}
 
 \begin{description}
-  \item[\flag{-o}{\tt\textsl{=file}},\quad\flag{--out}{\tt\textsl{=file}}] \hfill \\
+  \item[\flag{-o}{\tt\textsl{=file}},\quad\flag{-\--out}{\tt\textsl{=file}}] \hfill \\
     Utwórz plik wyjściowy o~podanej nazwie. Jeśli flaga jest podana wtedy nazwy
     pozostałych plików tworzonych przez program są wzorowane na jej argumencie,
     a~nie na nazwie pliku wejściowego, tzn. dodawane są postfixy \prog{.plt}
     i~\prog{.log}. Jeśli nazwa podanego pliku kończy się na \prog{.out} wtedy
     rozszerzenie to jest pomijane w~nazwach pozostałych plików.
-  \item[\flag{-g},\quad\flag{--gnuplot}] \hfill \\
+  \item[\flag{-g},\quad\flag{-\--gnuplot}] \hfill \\
     Razem z~plikem wyjściowym utwórz plik z~instrukcjami dla \prog{gnuplot}.
     Domyślnie wyłączone.
-  \item[\flag{-f},\quad\flag{--force}] \hfill \\
+  \item[\flag{-f},\quad\flag{-\--force}] \hfill \\
     Wymusza nadpisanie pliku, gdy plik wynikowy o~żądanej nazwie już istnieje.
     Domyślnie w~takiej sytuacji program przerywa działanie. Gorzej jak plik
     istnieje, ale użytkownik nie ma praw go ruszać.
-  \item[\flag{-q},\quad\flag{--quiet}] \hfill \\
+  \item[\flag{-q},\quad\flag{-\--quiet}] \hfill \\
     Nie twórz pliku z~logiem. Domyślnie \prog{.log} jest tworzony.
 \end{description}
 
